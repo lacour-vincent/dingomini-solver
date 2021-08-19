@@ -6,11 +6,17 @@ class Square:
 
     def __init__(self, top_left_card, top_right_card, bottom_right_card, bottom_left_card):
         self.__pattern = self.__create_pattern(top_left_card, top_right_card, bottom_right_card, bottom_left_card)
+        self.__id = [top_left_card.id, top_right_card.id, bottom_right_card.id, bottom_left_card.id]
 
     def is_pattern_valid(self):
+        if (len(set(self.__id)) != self.TOTAL_CARDS):
+            return False
         lines = [*self.__get_rows(), *self.__get_columns(), *self.__get_diagonals()]
+        return self.__is_line_set_colors(lines, self.WIDTH)
+
+    def __is_line_set_colors(self, lines, length):
         for line in lines:
-            if (len(set([l.value for l in line])) != self.WIDTH):
+            if (len(set([l.value for l in line])) != length):
                 return False
         return True
 
