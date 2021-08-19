@@ -1,18 +1,14 @@
 from core.solver import Solver
 from core.patterns.square import Square
+from core.patterns.rectangle import Rectangle
 from core.game import ALL_CARDS
 from draw.drawer import Drawer
 
-import time
-
 
 def main():
-    t0 = time.time()
-    solver = Solver(Square, ALL_CARDS)
+    solver = Solver(Rectangle, ALL_CARDS)
     drawer = Drawer(Square)
     solutions = solver.solve()
-    t1 = time.time()
-    print(F"Execution time : {t1 - t0 }")
     # drawer.draw_and_save_solutions(solutions)
 
 

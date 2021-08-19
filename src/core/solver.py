@@ -28,5 +28,10 @@ class Solver:
         return solutions
 
     def get_all_permutations(self):
+        all_permutations = []
         N = self.pattern.TOTAL_CARDS
-        return [list(p) for p in permutations(self.cards, N)]
+        print("get all permutations")
+        for permutation in permutations(self.cards, N):
+            all_permutations.append(list(permutation))
+        print(len(all_permutations))
+        return all_permutations
