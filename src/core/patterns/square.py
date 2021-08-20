@@ -34,7 +34,7 @@ class Square:
         return [[self.__get_cell(i, j) for j in range(0, self.WIDTH)] for i in range(0, self.HEIGHT)]
 
     def __get_columns(self):
-        return [[self.__get_cell(i, j) for i in range(0, self.WIDTH)] for j in range(0, self.HEIGHT)]
+        return [[self.__get_cell(i, j) for i in range(0, self.HEIGHT)] for j in range(0, self.WIDTH)]
 
     def __get_diagonals(self):
         return [

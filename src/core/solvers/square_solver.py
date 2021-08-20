@@ -1,0 +1,33 @@
+from itertools import permutations
+from concurrent.futures import ThreadPoolExecutor
+from numpy import array_split
+
+
+class SquareSolver:
+
+    CHUNKS = 4
+
+    def __init__(self, pattern, cards):
+        self.pattern = pattern
+        self.cards = cards
+
+    def is_permutation_valid(self, permutation):
+        pattern = self.pattern(*permutation)
+        if (pattern.is_pattern_valid()):
+            return permutation
+        return None
+
+    def solve(self):
+        solutions = []
+        all_permutations_chunks = array_split(self.get_all_permutations(), self.CHUNKS)
+        with ThreadPoolExecutor(max_workers=4) as executor:
+            for all_permutations in all_permutations_chunks:
+                permutations = executor.map(self.is_permutation_valid, all_permutations)
+                for solution in permutations:
+                    if (solution is not None):
+                        solutions.append(solution)
+        return solutions
+
+    def get_all_permutations(self):
+        N = self.pattern.TOTAL_CARDS
+        return [list(p) for p in permutations(self.cards, N)]

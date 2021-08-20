@@ -1,31 +1,55 @@
 from PIL import Image, ImageDraw
 from core.color import Color
 
-image = Image.new('RGBA', (200, 200))
-draw = ImageDraw.Draw(image)
-draw.ellipse((20, 180, 180, 20), fill='blue', outline='blue')
-draw.point((100, 100), 'red')
-image.save('test.png')
-
 
 class Drawer:
 
     CELL_SIZE = 50
 
-    def __init__(self, pattern):
-        self.pattern = pattern
-        self.width = self.CELL_SIZE * (pattern.WIDTH + 1)
-        self.height = self.CELL_SIZE * (pattern.HEIGHT + 1)
-
-    def draw_and_save_solutions(self, solutions):
+    def save_square_solutions(self, pattern, solutions):
+        width = self.CELL_SIZE * (pattern.WIDTH + 1)
+        height = self.CELL_SIZE * (pattern.HEIGHT + 1)
         for index, solution in enumerate(solutions):
-            im = Image.new('RGB', (self.width, self.height), "white")
+            im = Image.new('RGB', (width, height), "white")
             draw = ImageDraw.Draw(im)
             self.__draw_card(solution[0], 0, 0, draw)
             self.__draw_card(solution[1], 3 * self.CELL_SIZE, 0, draw)
             self.__draw_card(solution[2], 3 * self.CELL_SIZE, 3 * self.CELL_SIZE, draw)
             self.__draw_card(solution[3], 0, 3 * self.CELL_SIZE, draw)
-            im.save(F"solutions/solution-{index}.jpg", quality=95)
+            im.save(F"solutions/square/solution-{index}.jpg", quality=95)
+            im.close()
+
+    def save_rectangle_solutions(self, pattern, solutions):
+        width = self.CELL_SIZE * (pattern.WIDTH + 2)
+        height = self.CELL_SIZE * (pattern.HEIGHT + 1)
+        for index, solution in enumerate(solutions):
+            im = Image.new('RGB', (width, height), "white")
+            draw = ImageDraw.Draw(im)
+            self.__draw_card(solution[0], 0, 0, draw)
+            self.__draw_card(solution[1], 3 * self.CELL_SIZE, 0, draw)
+            self.__draw_card(solution[2], 6 * self.CELL_SIZE, 0, draw)
+            self.__draw_card(solution[3], 6 * self.CELL_SIZE, 3 * self.CELL_SIZE, draw)
+            self.__draw_card(solution[4], 3 * self.CELL_SIZE, 3 * self.CELL_SIZE, draw)
+            self.__draw_card(solution[5], 0, 3 * self.CELL_SIZE, draw)
+            im.save(F"solutions/rectangle/solution-{index}.jpg", quality=95)
+            im.close()
+
+    def save_great_square_solutions(self, pattern, solutions):
+        width = self.CELL_SIZE * (pattern.WIDTH + 2)
+        height = self.CELL_SIZE * (pattern.HEIGHT + 2)
+        for index, solution in enumerate(solutions):
+            im = Image.new('RGB', (width, height), "white")
+            draw = ImageDraw.Draw(im)
+            self.__draw_card(solution[0], 0, 0, draw)
+            self.__draw_card(solution[1], 3 * self.CELL_SIZE, 0, draw)
+            self.__draw_card(solution[2], 6 * self.CELL_SIZE, 0, draw)
+            self.__draw_card(solution[3], 6 * self.CELL_SIZE, 3 * self.CELL_SIZE, draw)
+            self.__draw_card(solution[4], 3 * self.CELL_SIZE, 3 * self.CELL_SIZE, draw)
+            self.__draw_card(solution[5], 0, 3 * self.CELL_SIZE, draw)
+            self.__draw_card(solution[6], 0, 6 * self.CELL_SIZE, draw)
+            self.__draw_card(solution[7], 3 * self.CELL_SIZE, 6 * self.CELL_SIZE, draw)
+            self.__draw_card(solution[8], 6 * self.CELL_SIZE, 6 * self.CELL_SIZE, draw)
+            im.save(F"solutions/great_square/solution-{index}.jpg", quality=95)
             im.close()
 
     def __draw_card(self, card, x, y, drawer):
