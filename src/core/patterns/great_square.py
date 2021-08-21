@@ -19,7 +19,7 @@ class GreatSquare:
     def is_pattern_valid(self):
         if (len(set(self.__id)) != self.TOTAL_CARDS):
             return False
-        lines = [*self.__get_rows(), *self.__get_columns(), *self.__get_diagonals()]
+        lines = [*self.__get_rows(), *self.__get_columns()]
         return self.__is_line_set_colors(lines, self.WIDTH)
 
     def __is_line_set_colors(self, lines, length):

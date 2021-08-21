@@ -1,12 +1,15 @@
+from operator import itemgetter
+
+
 class Square:
 
     TOTAL_CARDS = 4
     WIDTH = 4
     HEIGHT = 4
 
-    def __init__(self, top_left_card, top_right_card, bottom_right_card, bottom_left_card):
-        self.__pattern = self.__create_pattern(top_left_card, top_right_card, bottom_right_card, bottom_left_card)
-        self.__id = [top_left_card.id, top_right_card.id, bottom_right_card.id, bottom_left_card.id]
+    def __init__(self, cards):
+        self.__pattern = self.__create_pattern(cards)
+        self.__id = [card.id for card in cards.values()]
 
     def is_pattern_valid(self):
         if (len(set(self.__id)) != self.TOTAL_CARDS):
@@ -20,11 +23,13 @@ class Square:
                 return False
         return True
 
-    def __create_pattern(self, top_left_card, top_right_card, bottom_right_card, bottom_left_card):
-        return [top_left_card.top_left, top_left_card.top_right, top_right_card.top_left, top_right_card.top_right,
-                top_left_card.bottom_left, top_left_card.bottom_right,  top_right_card.bottom_left, top_right_card.bottom_right,
-                bottom_left_card.top_left, bottom_left_card.top_right, bottom_right_card.top_left, bottom_right_card.top_right,
-                bottom_left_card.bottom_left, bottom_left_card.bottom_right,  bottom_right_card.bottom_left, bottom_right_card.bottom_right,
+    def __create_pattern(self, cards):
+        tl, tr, bl, br = itemgetter('top_left', 'top_right', "bottom_left", "bottom_right")(cards)
+        return [tl.top_left, tl.top_right, tr.top_left, tr.top_right,
+                tl.bottom_left, tl.bottom_right,  tr.bottom_left, tr.bottom_right,
+
+                bl.top_left, bl.top_right, br.top_left, br.top_right,
+                bl.bottom_left, bl.bottom_right,  br.bottom_left, br.bottom_right,
                 ]
 
     def __get_cell(self, i, j):

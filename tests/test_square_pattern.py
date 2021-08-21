@@ -4,40 +4,60 @@ from src.core.patterns.square import Square
 
 
 def test_is_pattern_valid():
-    pattern = Square(Card(1, Color.GREEN, Color.BLUE, Color.PINK, Color.GRAY),
-                     Card(2, Color.GRAY, Color.YELLOW, Color.GREEN, Color.BLUE),
-                     Card(3, Color.YELLOW, Color.PINK, Color.BLUE, Color.RED),
-                     Card(4, Color.RED, Color.GREEN, Color.YELLOW, Color.PINK))
+    pattern = Square({"top_left": Card(1,  {"top_left": Color.GRAY, "top_right": Color.YELLOW,
+                                            "bottom_left": Color.BLUE, "bottom_right": Color.GREEN}),
+                      "top_right": Card(2,  {"top_left": Color.RED, "top_right": Color.BLUE,
+                                             "bottom_left": Color.GRAY, "bottom_right": Color.YELLOW}),
+                      "bottom_left": Card(3,  {"top_left": Color.YELLOW, "top_right": Color.PINK,
+                                               "bottom_left": Color.RED, "bottom_right": Color.BLUE}),
+                      "bottom_right": Card(4,  {"top_left": Color.BLUE, "top_right": Color.GREEN,
+                                                "bottom_left": Color.YELLOW, "bottom_right": Color.PINK})})
     assert pattern.is_pattern_valid() == True
 
 
 def test_is_pattern_invalid_same_card():
-    pattern = Square(Card(1, Color.YELLOW, Color.RED, Color.PINK, Color.RED),
-                     Card(1, Color.YELLOW, Color.PINK, Color.BLUE, Color.RED),
-                     Card(3, Color.GRAY, Color.YELLOW, Color.GREEN, Color.BLUE),
-                     Card(4, Color.GRAY, Color.GREEN, Color.GRAY, Color.BLUE))
+    pattern = Square({"top_left": Card(1,  {"top_left": Color.GRAY, "top_right": Color.YELLOW,
+                                            "bottom_left": Color.BLUE, "bottom_right": Color.GREEN}),
+                      "top_right": Card(1,  {"top_left": Color.RED, "top_right": Color.BLUE,
+                                             "bottom_left": Color.GRAY, "bottom_right": Color.YELLOW}),
+                      "bottom_left": Card(3,  {"top_left": Color.YELLOW, "top_right": Color.PINK,
+                                               "bottom_left": Color.RED, "bottom_right": Color.BLUE}),
+                      "bottom_right": Card(4,  {"top_left": Color.BLUE, "top_right": Color.GREEN,
+                                                "bottom_left": Color.YELLOW, "bottom_right": Color.PINK})})
     assert pattern.is_pattern_valid() == False
 
 
 def test_is_pattern_invalid_row():
-    pattern = Square(Card(1, Color.YELLOW, Color.RED, Color.PINK, Color.RED),
-                     Card(2, Color.YELLOW, Color.PINK, Color.BLUE, Color.RED),
-                     Card(3, Color.GRAY, Color.YELLOW, Color.GREEN, Color.BLUE),
-                     Card(4, Color.GRAY, Color.GREEN, Color.GRAY, Color.BLUE))
+    pattern = Square({"top_left": Card(1,  {"top_left": Color.PINK, "top_right": Color.GRAY,
+                                            "bottom_left": Color.BLUE, "bottom_right": Color.GREEN}),
+                      "top_right": Card(2,  {"top_left": Color.GRAY, "top_right": Color.GREEN,
+                                             "bottom_left": Color.BLUE, "bottom_right": Color.GRAY}),
+                      "bottom_left": Card(3,  {"top_left": Color.RED, "top_right": Color.PINK,
+                                               "bottom_left": Color.YELLOW, "bottom_right": Color.RED}),
+                      "bottom_right": Card(4,  {"top_left": Color.YELLOW, "top_right": Color.PINK,
+                                                "bottom_left": Color.GREEN, "bottom_right": Color.RED})})
     assert pattern.is_pattern_valid() == False
 
 
 def test_is_pattern_invalid_column():
-    pattern = Square(Card(1, Color.BLUE, Color.GRAY, Color.GREEN, Color.GRAY),
-                     Card(2, Color.RED, Color.YELLOW, Color.RED, Color.PINK),
-                     Card(3, Color.RED, Color.YELLOW, Color.PINK, Color.BLUE),
-                     Card(4, Color.BLUE, Color.GRAY, Color.YELLOW, Color.GREEN))
+    pattern = Square({"top_left": Card(1,  {"top_left": Color.PINK, "top_right": Color.GRAY,
+                                            "bottom_left": Color.BLUE, "bottom_right": Color.GREEN}),
+                      "top_right": Card(2,  {"top_left": Color.RED, "top_right": Color.YELLOW,
+                                             "bottom_left": Color.PINK, "bottom_right": Color.RED}),
+                      "bottom_left": Card(3,  {"top_left": Color.GRAY, "top_right": Color.GREEN,
+                                               "bottom_left": Color.BLUE, "bottom_right": Color.GRAY}),
+                      "bottom_right": Card(4,  {"top_left": Color.YELLOW, "top_right": Color.PINK,
+                                                "bottom_left": Color.GREEN, "bottom_right": Color.RED})})
     assert pattern.is_pattern_valid() == False
 
 
 def test_is_pattern_invalid_diagonal():
-    pattern = Square(Card(1, Color.YELLOW, Color.RED, Color.PINK, Color.RED),
-                     Card(2, Color.GRAY, Color.BLUE, Color.GRAY, Color.GREEN),
-                     Card(3, Color.BLUE, Color.RED, Color.YELLOW, Color.PINK),
-                     Card(4, Color.PINK, Color.YELLOW, Color.BLUE, Color.GREEN))
+    pattern = Square({"top_left": Card(1,  {"top_left": Color.PINK, "top_right": Color.GRAY,
+                                            "bottom_left": Color.BLUE, "bottom_right": Color.GREEN}),
+                      "top_right": Card(2,  {"top_left": Color.YELLOW, "top_right": Color.RED,
+                                             "bottom_left": Color.RED, "bottom_right": Color.PINK}),
+                      "bottom_left": Card(3,  {"top_left": Color.YELLOW, "top_right": Color.PINK,
+                                               "bottom_left": Color.GREEN, "bottom_right": Color.RED}),
+                      "bottom_right": Card(4,  {"top_left": Color.GRAY, "top_right": Color.GREEN,
+                                                "bottom_left": Color.BLUE, "bottom_right": Color.GRAY})})
     assert pattern.is_pattern_valid() == False

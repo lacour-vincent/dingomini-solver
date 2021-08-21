@@ -1,17 +1,15 @@
+from operator import itemgetter
+
+
 class Rectangle:
 
     TOTAL_CARDS = 6
     WIDTH = 6
     HEIGHT = 4
 
-    def __init__(self, top_left_card, top_middle_card, top_right_card,
-                 bottom_right_card, bottom_middle_card, bottom_left_card):
-
-        self.__pattern = self.__create_pattern(top_left_card, top_middle_card, top_right_card,
-                                               bottom_right_card, bottom_middle_card, bottom_left_card)
-
-        self.__id = [top_left_card.id, top_middle_card.id, top_right_card.id,
-                     bottom_right_card.id, bottom_middle_card, bottom_left_card.id]
+    def __init__(self, cards):
+        self.__pattern = self.__create_pattern(cards)
+        self.__id = [card.id for card in cards.values()]
 
     def is_pattern_valid(self):
         if (len(set(self.__id)) != self.TOTAL_CARDS):
@@ -28,14 +26,15 @@ class Rectangle:
                 return False
         return True
 
-    def __create_pattern(self, top_left_card, top_middle_card, top_right_card,
-                         bottom_right_card, bottom_middle_card, bottom_left_card):
+    def __create_pattern(self, cards):
+        tl, tm, tr, bl, bm, br = itemgetter('top_left', "top_middle", 'top_right',
+                                            "bottom_left", "bottom_middle", "bottom_right")(cards)
 
-        return [top_left_card.top_left, top_left_card.top_right, top_middle_card.top_left, top_middle_card.top_right, top_right_card.top_left, top_right_card.top_right,
-                top_left_card.bottom_left, top_left_card.bottom_right, top_middle_card.bottom_left, top_middle_card.bottom_right, top_right_card.bottom_left, top_right_card.bottom_right,
+        return [tl.top_left, tl.top_right, tm.top_left, tm.top_right, tr.top_left, tr.top_right,
+                tl.bottom_left, tl.bottom_right, tm.bottom_left, tm.bottom_right, tr.bottom_left, tr.bottom_right,
 
-                bottom_left_card.top_left, bottom_left_card.top_right, bottom_middle_card.top_left, bottom_middle_card.top_right, bottom_right_card.top_left, bottom_right_card.top_right,
-                bottom_left_card.bottom_left, bottom_left_card.bottom_right, bottom_middle_card.bottom_left, bottom_middle_card.bottom_right,  bottom_right_card.bottom_left, bottom_right_card.bottom_right,
+                bl.top_left, bl.top_right, bm.top_left, bm.top_right, br.top_left, br.top_right,
+                bl.bottom_left, bl.bottom_right, bm.bottom_left, bm.bottom_right,  br.bottom_left, br.bottom_right,
                 ]
 
     def __get_cell(self, i, j):

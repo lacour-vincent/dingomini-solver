@@ -13,15 +13,22 @@ from draw.drawer import Drawer
 def main():
     drawer = Drawer()
     square_solver = SquareSolver(Square, ALL_CARDS)
+    print("solve square...")
     square_solutions = square_solver.solve()
-    rectangle_solver = RectangleSolver(Rectangle, ALL_CARDS, square_solutions)
-    rectangle_solutions = rectangle_solver.solve()
-    great_square_solver = GreatSquareSolver(GreatSquare, ALL_CARDS, rectangle_solutions)
-    great_square_solutions = great_square_solver.solve()
 
+    rectangle_solver = RectangleSolver(Rectangle, ALL_CARDS, square_solutions)
+    print("solve rectangle...")
+    rectangle_solutions = rectangle_solver.solve()
+
+    # great_square_solver = GreatSquareSolver(GreatSquare, ALL_CARDS, square_solutions)
+    # great_square_solutions = great_square_solver.solve()
+
+    print(F"square solutions : {len(square_solutions)}")
     drawer.save_square_solutions(Square, square_solutions)
+    print(F"rectangle solutions : {len(rectangle_solutions)}")
     drawer.save_rectangle_solutions(Rectangle, rectangle_solutions)
-    drawer.save_great_square_solutions(GreatSquare, great_square_solutions)
+    # print(F"great square solutions : {len(rectangle_solutions)}")
+    # drawer.save_great_square_solutions(GreatSquare, great_square_solutions)
 
 
 if __name__ == "__main__":

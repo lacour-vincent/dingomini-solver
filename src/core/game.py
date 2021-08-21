@@ -2,15 +2,32 @@ from src.core.color import Color
 from src.core.card import Card
 
 DEFAULT_CARDS = [
-    Card(1, Color.GRAY, Color.YELLOW, Color.GREEN, Color.BLUE),
-    Card(2, Color.YELLOW, Color.PINK, Color.BLUE, Color.RED),
-    Card(3, Color.PINK, Color.RED, Color.YELLOW, Color.RED),
-    Card(4, Color.GRAY, Color.BLUE, Color.GRAY, Color.GREEN),
-    Card(5, Color.YELLOW, Color.GRAY, Color.RED, Color.BLUE),
-    Card(6, Color.GREEN, Color.PINK, Color.RED, Color.GRAY),
-    Card(7, Color.BLUE, Color.GREEN, Color.PINK, Color.YELLOW),
-    Card(8, Color.PINK, Color.RED, Color.GREEN, Color.YELLOW),
-    Card(9, Color.GRAY, Color.GREEN, Color.BLUE, Color.PINK),
+    Card(1, {"top_left": Color.PINK, "top_right": Color.GRAY,
+             "bottom_left": Color.BLUE, "bottom_right": Color.GREEN}),
+
+    Card(2, {"top_left": Color.RED, "top_right": Color.PINK,
+             "bottom_left": Color.YELLOW, "bottom_right": Color.RED}),
+
+    Card(3, {"top_left": Color.GRAY, "top_right": Color.GREEN,
+             "bottom_left": Color.BLUE, "bottom_right": Color.GRAY}),
+
+    Card(4, {"top_left": Color.BLUE, "top_right": Color.YELLOW,
+             "bottom_left": Color.RED, "bottom_right": Color.GRAY}),
+
+    Card(5, {"top_left": Color.PINK, "top_right": Color.RED,
+             "bottom_left": Color.YELLOW, "bottom_right": Color.GREEN}),
+
+    Card(6, {"top_left": Color.PINK, "top_right": Color.YELLOW,
+             "bottom_left": Color.GREEN, "bottom_right": Color.BLUE}),
+
+    Card(7, {"top_left": Color.GREEN, "top_right": Color.PINK,
+             "bottom_left": Color.GRAY, "bottom_right": Color.RED}),
+
+    Card(8, {"top_left": Color.RED, "top_right": Color.YELLOW,
+             "bottom_left": Color.BLUE, "bottom_right": Color.PINK}),
+
+    Card(9, {"top_left": Color.GRAY, "top_right": Color.YELLOW,
+             "bottom_left": Color.BLUE, "bottom_right": Color.GREEN}),
 ]
 
 ALL_CONFIGURATIONS = [card.get_configurations() for card in DEFAULT_CARDS]

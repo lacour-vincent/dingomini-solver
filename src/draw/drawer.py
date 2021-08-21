@@ -12,10 +12,10 @@ class Drawer:
         for index, solution in enumerate(solutions):
             im = Image.new('RGB', (width, height), "white")
             draw = ImageDraw.Draw(im)
-            self.__draw_card(solution[0], 0, 0, draw)
-            self.__draw_card(solution[1], 3 * self.CELL_SIZE, 0, draw)
-            self.__draw_card(solution[2], 3 * self.CELL_SIZE, 3 * self.CELL_SIZE, draw)
-            self.__draw_card(solution[3], 0, 3 * self.CELL_SIZE, draw)
+            self.__draw_card(solution["top_left"], 0, 0, draw)
+            self.__draw_card(solution["top_right"], 3 * self.CELL_SIZE, 0, draw)
+            self.__draw_card(solution["bottom_left"], 0, 3 * self.CELL_SIZE, draw)
+            self.__draw_card(solution["bottom_right"], 3 * self.CELL_SIZE, 3 * self.CELL_SIZE, draw)
             im.save(F"solutions/square/solution-{index}.jpg", quality=95)
             im.close()
 
@@ -25,12 +25,12 @@ class Drawer:
         for index, solution in enumerate(solutions):
             im = Image.new('RGB', (width, height), "white")
             draw = ImageDraw.Draw(im)
-            self.__draw_card(solution[0], 0, 0, draw)
-            self.__draw_card(solution[1], 3 * self.CELL_SIZE, 0, draw)
-            self.__draw_card(solution[2], 6 * self.CELL_SIZE, 0, draw)
-            self.__draw_card(solution[3], 6 * self.CELL_SIZE, 3 * self.CELL_SIZE, draw)
-            self.__draw_card(solution[4], 3 * self.CELL_SIZE, 3 * self.CELL_SIZE, draw)
-            self.__draw_card(solution[5], 0, 3 * self.CELL_SIZE, draw)
+            self.__draw_card(solution["top_left"], 0, 0, draw)
+            self.__draw_card(solution["top_middle"], 3 * self.CELL_SIZE, 0, draw)
+            self.__draw_card(solution["top_right"], 6 * self.CELL_SIZE, 0, draw)
+            self.__draw_card(solution["bottom_left"], 0, 3 * self.CELL_SIZE, draw)
+            self.__draw_card(solution["bottom_middle"], 3 * self.CELL_SIZE, 3 * self.CELL_SIZE, draw)
+            self.__draw_card(solution["bottom_right"], 6 * self.CELL_SIZE, 3 * self.CELL_SIZE, draw)
             im.save(F"solutions/rectangle/solution-{index}.jpg", quality=95)
             im.close()
 
