@@ -1,25 +1,20 @@
+from operator import itemgetter
+
+
 class GreatSquare:
 
     TOTAL_CARDS = 9
     WIDTH = 6
     HEIGHT = 6
 
-    def __init__(self, top_left_card, top_middle_card, top_right_card,
-                 center_right_card, center_middle_card, center_left_card,
-                 bottom_left_card, bottom_middle_card, bottom_right_card):
-
-        self.__pattern = self.__create_pattern(top_left_card, top_middle_card, top_right_card,
-                                               center_right_card, center_middle_card, center_left_card,
-                                               bottom_left_card, bottom_middle_card, bottom_right_card)
-
-        self.__id = [top_left_card.id, top_middle_card.id, top_right_card.id,
-                     center_right_card.id, center_middle_card.id, center_left_card.id,
-                     bottom_left_card.id, bottom_middle_card.id, bottom_right_card.id]
+    def __init__(self, cards):
+        self.__pattern = self.__create_pattern(cards)
+        self.__id = [card.id for card in cards.values()]
 
     def is_pattern_valid(self):
         if (len(set(self.__id)) != self.TOTAL_CARDS):
             return False
-        lines = [*self.__get_rows(), *self.__get_columns()]
+        lines = [*self.__get_columns(), *self.__get_diagonals()]
         return self.__is_line_set_colors(lines, self.WIDTH)
 
     def __is_line_set_colors(self, lines, length):
@@ -28,18 +23,19 @@ class GreatSquare:
                 return False
         return True
 
-    def __create_pattern(self, top_left_card, top_middle_card, top_right_card,
-                         center_right_card, center_middle_card, center_left_card,
-                         bottom_left_card, bottom_middle_card, bottom_right_card):
+    def __create_pattern(self, cards):
+        tl, tm, tr, cl, cm, cr, bl, bm, br = itemgetter('top_left', "top_middle", 'top_right',
+                                                        'center_left', 'center_middle', "center_right",
+                                                        "bottom_left", "bottom_middle", "bottom_right")(cards)
 
-        return [top_left_card.top_left, top_left_card.top_right, top_middle_card.top_left, top_middle_card.top_right, top_right_card.top_left, top_right_card.top_right,
-                top_left_card.bottom_left, top_left_card.bottom_right, top_middle_card.bottom_left, top_middle_card.bottom_right, top_right_card.bottom_left, top_right_card.bottom_right,
+        return [tl.top_left, tl.top_right, tm.top_left, tm.top_right, tr.top_left, tr.top_right,
+                tl.bottom_left, tl.bottom_right, tm.bottom_left, tm.bottom_right, tr.bottom_left, tr.bottom_right,
 
-                center_left_card.top_left, center_left_card.top_right, center_middle_card.top_left, center_middle_card.top_right, center_right_card.top_left,  center_right_card.top_right,
-                center_left_card.bottom_left, center_left_card.bottom_right, center_middle_card.bottom_left, center_middle_card.bottom_right, center_right_card.bottom_left,  center_right_card.bottom_right,
+                cl.top_left, cl.top_right, cm.top_left, cm.top_right, cr.top_left,  cr.top_right,
+                cl.bottom_left, cl.bottom_right, cm.bottom_left, cm.bottom_right, cr.bottom_left,  cr.bottom_right,
 
-                bottom_left_card.top_left, bottom_left_card.top_right, bottom_middle_card.top_left, bottom_middle_card.top_right, bottom_right_card.top_left, bottom_right_card.top_right,
-                bottom_left_card.bottom_left, bottom_left_card.bottom_right, bottom_middle_card.bottom_left, bottom_middle_card.bottom_right,  bottom_right_card.bottom_left, bottom_right_card.bottom_right,
+                bl.top_left, bl.top_right, bm.top_left, bm.top_right, br.top_left, br.top_right,
+                bl.bottom_left, bl.bottom_right, bm.bottom_left, bm.bottom_right,  br.bottom_left, br.bottom_right,
                 ]
 
     def __get_cell(self, i, j):

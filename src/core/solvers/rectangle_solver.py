@@ -15,9 +15,7 @@ class RectangleSolver:
 
     def solve(self):
         solutions = []
-        perms = self.__get_all_permutations()
-        print(len(perms))
-        all_permutations_chunks = array_split(perms, self.CHUNKS)
+        all_permutations_chunks = array_split(self.__get_all_permutations(), self.CHUNKS)
         with ThreadPoolExecutor(max_workers=4) as executor:
             for all_permutations in all_permutations_chunks:
                 permutations = executor.map(self.__is_permutation_valid, all_permutations)
