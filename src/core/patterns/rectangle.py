@@ -8,6 +8,7 @@ class Rectangle:
     HEIGHT = 4
 
     def __init__(self, cards):
+        self.hash = hash(frozenset(cards.items()))
         self.__pattern = self.__create_pattern(cards)
         self.__id = [card.id for card in cards.values()]
 

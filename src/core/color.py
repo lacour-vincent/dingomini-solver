@@ -1,7 +1,7 @@
-from enum import Enum, auto
+from enum import IntEnum, auto
 
 
-class Color(Enum):
+class Color(IntEnum):
     YELLOW = auto()
     GREEN = auto()
     BLUE = auto()

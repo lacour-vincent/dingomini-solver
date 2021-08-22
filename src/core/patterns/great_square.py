@@ -8,13 +8,14 @@ class GreatSquare:
     HEIGHT = 6
 
     def __init__(self, cards):
+        self.hash = hash(frozenset(cards.items()))
         self.__pattern = self.__create_pattern(cards)
         self.__id = [card.id for card in cards.values()]
 
     def is_pattern_valid(self):
         if (len(set(self.__id)) != self.TOTAL_CARDS):
             return False
-        lines = [*self.__get_columns(), *self.__get_diagonals()]
+        lines = [*self.__get_rows(),  *self.__get_columns(), *self.__get_diagonals()]
         return self.__is_line_set_colors(lines, self.WIDTH)
 
     def __is_line_set_colors(self, lines, length):

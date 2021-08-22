@@ -18,13 +18,17 @@ class GreatSquareSolver:
 
     def solve(self):
         solutions = []
+        solution_hashes = []
         all_permutations_chunks = array_split(self.__get_all_permutations(), self.CHUNKS)
         with ThreadPoolExecutor(max_workers=4) as executor:
             for all_permutations in all_permutations_chunks:
                 permutations = executor.map(self.__is_permutation_valid, all_permutations)
                 for solution in permutations:
                     if (solution is not None):
-                        solutions.append(solution)
+                        pattern, hash = solution
+                        if (hash not in solution_hashes):
+                            solutions.append(pattern)
+                            solution_hashes.append(hash)
         return solutions
 
     def __is_permutation_valid(self, permutation):
@@ -33,7 +37,7 @@ class GreatSquareSolver:
                  "bottom_left": permutation[6], "bottom_middle": permutation[7], "bottom_right": permutation[8]}
         pattern = self.pattern(cards)
         if (pattern.is_pattern_valid()):
-            return cards
+            return cards, pattern.hash
         return None
 
     def __get_all_permutations(self):
@@ -44,7 +48,6 @@ class GreatSquareSolver:
                                                 "bottom_left", "bottom_middle", "bottom_right")(rectangle_solution)
             for permutation in permutations_from_solution:
                 all_permutations.append([tl, tm, tr, bl, bm, br, permutation[0], permutation[1], permutation[2]])
-                all_permutations.append([permutation[0], permutation[1], permutation[2], tl, tm, tr, bl, bm, br])
         return all_permutations
 
     def __get_permutations_from_solution(self, rectangle_solution):

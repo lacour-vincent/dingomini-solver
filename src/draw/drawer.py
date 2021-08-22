@@ -6,6 +6,17 @@ class Drawer:
 
     CELL_SIZE = 50
 
+    def save_small_rectangle_solutions(self, pattern, solutions):
+        width = self.CELL_SIZE * (pattern.WIDTH + 1)
+        height = self.CELL_SIZE * (pattern.HEIGHT)
+        for index, solution in enumerate(solutions):
+            im = Image.new('RGB', (width, height), "white")
+            draw = ImageDraw.Draw(im)
+            self.__draw_card(solution["left"], 0, 0, draw)
+            self.__draw_card(solution["right"], 3 * self.CELL_SIZE, 0, draw)
+            im.save(F"solutions/small_rectangle/solution-{index}.jpg", quality=95)
+            im.close()
+
     def save_square_solutions(self, pattern, solutions):
         width = self.CELL_SIZE * (pattern.WIDTH + 1)
         height = self.CELL_SIZE * (pattern.HEIGHT + 1)
