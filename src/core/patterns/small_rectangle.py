@@ -2,7 +2,6 @@ from operator import itemgetter
 
 
 class SmallRectangle:
-
     TOTAL_CARDS = 2
     WIDTH = 4
     HEIGHT = 2
@@ -13,25 +12,33 @@ class SmallRectangle:
         self.__id = [card.id for card in cards.values()]
 
     def is_pattern_valid(self):
-        if (len(set(self.__id)) != self.TOTAL_CARDS):
+        if len(set(self.__id)) != self.TOTAL_CARDS:
             return False
         row_lines = [*self.__get_rows()]
-        if (not self.__is_line_set_colors(row_lines, self.WIDTH)):
+        if not self.__is_line_set_colors(row_lines, self.WIDTH):
             return False
         lines = [*self.__get_columns()]
         return self.__is_line_set_colors(lines, self.HEIGHT)
 
     def __is_line_set_colors(self, lines, length):
         for line in lines:
-            if (len(set([l.value for l in line])) != length):
+            if len(set([cell.value for cell in line])) != length:
                 return False
         return True
 
     def __create_pattern(self, cards):
-        l, r = itemgetter('left', "right")(cards)
+        l, r = itemgetter("left", "right")(cards)
 
-        return [l.top_left, l.top_right, r.top_left, r.top_right,
-                l.bottom_left, l.bottom_right, r.bottom_left, r.bottom_right]
+        return [
+            l.top_left,
+            l.top_right,
+            r.top_left,
+            r.top_right,
+            l.bottom_left,
+            l.bottom_right,
+            r.bottom_left,
+            r.bottom_right,
+        ]
 
     def __get_cell(self, i, j):
         return self.__pattern[(i * self.WIDTH) + j]

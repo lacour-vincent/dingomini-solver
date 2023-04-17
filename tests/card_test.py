@@ -1,5 +1,5 @@
-from src.core.color import Color
-from src.core.card import Card
+from core.color import Color
+from core.card import Card
 
 
 def assert_card_equals(card_left, card_right):

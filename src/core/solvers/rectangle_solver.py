@@ -5,7 +5,6 @@ from operator import itemgetter
 
 
 class RectangleSolver:
-
     CHUNKS = 4
 
     def __init__(self, pattern, cards, square_solutions):
@@ -21,18 +20,24 @@ class RectangleSolver:
             for all_permutations in all_permutations_chunks:
                 permutations = executor.map(self.__is_permutation_valid, all_permutations)
                 for solution in permutations:
-                    if (solution is not None):
+                    if solution is not None:
                         pattern, hash = solution
-                        if (hash not in solution_hashes):
+                        if hash not in solution_hashes:
                             solutions.append(pattern)
                             solution_hashes.append(hash)
         return solutions
 
     def __is_permutation_valid(self, permutation):
-        cards = {"top_left": permutation[0], "top_middle": permutation[1],  "top_right": permutation[2],
-                 "bottom_left": permutation[3], "bottom_middle": permutation[4], "bottom_right": permutation[5]}
+        cards = {
+            "top_left": permutation[0],
+            "top_middle": permutation[1],
+            "top_right": permutation[2],
+            "bottom_left": permutation[3],
+            "bottom_middle": permutation[4],
+            "bottom_right": permutation[5],
+        }
         pattern = self.pattern(cards)
-        if (pattern.is_pattern_valid()):
+        if pattern.is_pattern_valid():
             return cards, pattern.hash
         return None
 
@@ -40,7 +45,7 @@ class RectangleSolver:
         all_permutations = []
         for square_solution in self.square_solutions:
             permutations_from_solution = self.__get_permutations_from_solution(square_solution)
-            tl, tr, bl, br = itemgetter('top_left', 'top_right', "bottom_left", "bottom_right")(square_solution)
+            tl, tr, bl, br = itemgetter("top_left", "top_right", "bottom_left", "bottom_right")(square_solution)
             for permutation in permutations_from_solution:
                 all_permutations.append([tl, tr, permutation[0], bl, br, permutation[1]])
         return all_permutations

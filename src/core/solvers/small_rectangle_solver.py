@@ -4,7 +4,6 @@ from numpy import array_split
 
 
 class SmallRectangleSolver:
-
     CHUNKS = 4
 
     def __init__(self, pattern, cards):
@@ -19,9 +18,9 @@ class SmallRectangleSolver:
             for all_permutations in all_permutations_chunks:
                 permutations = executor.map(self.__is_permutation_valid, all_permutations)
                 for solution in permutations:
-                    if (solution is not None):
+                    if solution is not None:
                         pattern, hash = solution
-                        if (hash not in solution_hashes):
+                        if hash not in solution_hashes:
                             solutions.append(pattern)
                             solution_hashes.append(hash)
         return solutions
@@ -29,7 +28,7 @@ class SmallRectangleSolver:
     def __is_permutation_valid(self, permutation):
         cards = {"left": permutation[0], "right": permutation[1]}
         pattern = self.pattern(cards)
-        if (pattern.is_pattern_valid()):
+        if pattern.is_pattern_valid():
             return cards, pattern.hash
         return None
 

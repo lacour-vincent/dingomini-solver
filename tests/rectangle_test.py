@@ -1,6 +1,6 @@
-from src.core.color import Color
-from src.core.card import Card
-from src.core.patterns.rectangle import Rectangle
+from core.color import Color
+from core.card import Card
+from core.patterns.rectangle import Rectangle
 
 
 def test_is_pattern_valid():
